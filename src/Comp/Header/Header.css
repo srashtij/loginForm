@@ -1,0 +1,40 @@
+/* Header.css */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #3f0731c7;
+  color: #ece2e2;
+}
+
+.logo {
+  width: 100px; /* Adjust as needed */
+}
+
+.nav-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.nav-item {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  
+}
+
+.nav-item a {
+  color: rgb(226, 205, 205);
+  text-decoration:double;
+  padding:10px;
+  font-size: 20px;
+ 
+}
+
+.nav-item:first-child {
+  margin-left: 0;
+}
