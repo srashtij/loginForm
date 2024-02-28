@@ -1,52 +1,40 @@
 // App.tsx
-
-import { useState } from 'react';
-import Input from './Comp/Input/Input.tsx'; 
-import Header from './Comp/Header/Header.tsx'; 
-
-import './Comp/Input/Input.css'; 
+import { useRef } from 'react';
+import Header from './Comp/Header/Header.tsx';
+import './Comp/Input/Input.css';
 
 function App() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [login, setLogin] = useState(false);
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
-  const handleLogin = () => {
-    if (username === "tanchuitextile" && password === "tanchui123") {
-      setLogin(true);
-      setUsername("");
-      setPassword("");
-    } else if (username === "" && password === "") {
-      alert("Please enter username and password");
-    } else {
-      alert("Invalid credentials");
-      setLogin(false);
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    const usernameValue = usernameRef.current?.value;
+    const passwordValue = passwordRef.current?.value;
+
+    if (usernameValue && /\S/.test(usernameValue) && passwordValue && /\S/.test(passwordValue)) {
+      alert(`Welcome ${usernameValue}! You are logged in`);
     }
   };
 
   return (
     <>
-     <Header />
-
-      {login ? (
-        <div>
-          <h2>Login Form</h2>
-          <h4>WELCOME {username}</h4>
-          <button onClick={() => setLogin(false)}>Logout</button>
-        </div>
-      ) : (
-        <>
-       
-          <form className="form-container"> {/* Add form-container class */}
-          <h1>Login-Form</h1>
-            <Input type="text" id="username" value={username} label="Username" onChange={setUsername} />
-            <Input type="password" id="password" value={password} label="Password" onChange={setPassword} />
-            <button onClick={handleLogin}>Login</button>
-          </form>
-        </>
-      )}
+      <Header />
+      <div className="form-container">
+        <h1>Login-Form</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="input-container">
+            <label htmlFor="username">Username</label>
+            <input type="text" id="username" ref={usernameRef} />
+          </div>
+          <div className="input-container">
+            <label htmlFor="password">Password</label>
+            <input type="password" id="password" ref={passwordRef} />
+          </div>
+          <button type="submit">Login</button>
+        </form>
+      </div>
     </>
-   
   );
 }
 

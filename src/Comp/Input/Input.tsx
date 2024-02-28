@@ -1,23 +1,19 @@
-import './Input.css';
+// Input.tsx
+import React, { forwardRef } from 'react';
 
-
-
-
-interface InputFieldProps {
+interface InputProps {
   type: string;
   id: string;
   label: string;
-  value: string;
-  onChange: (value: string) => void;
 }
 
-function Input({ type, id, label, value, onChange }: InputFieldProps) {
+const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({ type, id, label }, ref) => {
   return (
-    <div className="form-group">
-      <label htmlFor={id}>{label}:</label>
-      <input type={type}  id={id}  value={value}  onChange={(e) => onChange(e.target.value)} />
+    <div className="input-container">
+      <label htmlFor={id}>{label}</label>
+      <input type={type} id={id} ref={ref} />
     </div>
   );
-}
+};
 
-export default Input;
+export default forwardRef(Input);
