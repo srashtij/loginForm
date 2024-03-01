@@ -1,19 +1,20 @@
 // Input.tsx
-import React, { forwardRef } from 'react';
+
 
 interface InputProps {
   type: string;
   id: string;
   label: string;
+  inputRef: any; 
 }
 
-const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({ type, id, label }, ref) => {
+const Input = ({ type, id, label, inputRef }: InputProps) => {
   return (
     <div className="input-container">
       <label htmlFor={id}>{label}</label>
-      <input type={type} id={id} ref={ref} />
+      <input type={type} id={id} ref={inputRef} />
     </div>
   );
 };
 
-export default forwardRef(Input);
+export default Input;

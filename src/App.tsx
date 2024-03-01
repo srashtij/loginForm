@@ -1,19 +1,28 @@
-// App.tsx
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import Header from './Comp/Header/Header.tsx';
+import Input from './Comp/Input/Input.tsx';
 import './Comp/Input/Input.css';
 
 function App() {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const userId = useRef<number>(1);
+
+  useEffect(() => {
+    
+    const handleLogin = () => {
+      userId.current++;
+    };
+    document.addEventListener('submit', handleLogin);
+  }, [userId.current]);
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
     const usernameValue = usernameRef.current?.value;
     const passwordValue = passwordRef.current?.value;
 
-    if (usernameValue && /\S/.test(usernameValue) && passwordValue && /\S/.test(passwordValue)) {
-      alert(`Welcome ${usernameValue}! You are logged in`);
+    if (usernameValue && passwordValue) {
+      alert(`Welcome ${usernameValue}! Your user ID is ${userId.current}`);
     }
   };
 
@@ -23,14 +32,8 @@ function App() {
       <div className="form-container">
         <h1>Login-Form</h1>
         <form onSubmit={handleSubmit}>
-          <div className="input-container">
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" ref={usernameRef} />
-          </div>
-          <div className="input-container">
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" ref={passwordRef} />
-          </div>
+          <Input type="text" id="username" label="Username" inputRef={usernameRef} />
+          <Input type="password" id="password" label="Password" inputRef={passwordRef} />
           <button type="submit">Login</button>
         </form>
       </div>
